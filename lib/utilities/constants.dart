@@ -13,3 +13,12 @@ const kDateStyle = TextStyle(
 const kSpace = SizedBox(
   height: 20,
 );
+const kImprovedSpace = SizedBox(
+  height: 10,
+);
+
+const kTempStyle = TextStyle(
+    fontSize: 19,
+    color: Colors.white,
+    fontWeight: FontWeight.bold,
+  );

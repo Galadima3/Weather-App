@@ -3,6 +3,8 @@ import 'package:geolocator/geolocator.dart';
 import 'package:flutter/material.dart';
 import 'package:weather/utilities/constants.dart';
 
+import '../utilities/widgets.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -11,7 +13,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final  _colorContainer = Color.fromARGB(255, 5, 71, 124);
+  final _colorContainer = Color.fromARGB(255, 5, 71, 124);
   var lat = '0.0';
   var long = '0.0';
   getLocation() async {
@@ -42,22 +44,29 @@ class _HomePageState extends State<HomePage> {
         body: Center(
           child: Column(
             children: [
-              kSpace,
+              SizedBox(
+                height: 20,
+              ),
               Text(
                 'Abuja',
                 style: homePageHeader,
               ),
-              kSpace,
+              kImprovedSpace,
               Text(
                 'May 28, 2021',
                 style: kDateStyle,
               ),
-              kSpace,
+              kImprovedSpace,
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  ClipContainer(colorContainer: _colorContainer, text: 'Forecast',),
-                  SizedBox(width: 3,),
+                  ClipContainer(
+                    colorContainer: _colorContainer,
+                    text: 'Forecast',
+                  ),
+                  SizedBox(
+                    width: 3,
+                  ),
                   ClipRRect(
                     borderRadius: BorderRadius.circular(15),
                     child: Container(
@@ -66,30 +75,110 @@ class _HomePageState extends State<HomePage> {
                       color: _colorContainer,
                     ),
                   ),
-                  
                 ],
               ),
-              kSpace,
+              kImprovedSpace,
               Container(
-                
                 height: 200,
-                  width: double.infinity,
+                width: double.infinity,
                 child: Image.asset('images/cloud-with-snow.png'),
               ),
-              Container(
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              kSpace,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: 35,
+                  ),
+                  Container(
+                    child: Column(
                       children: [
-                        Text('Temp'),
-                        Text('Temp'),
-                        Text('Temp')
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 4.0),
+                          child: Text(
+                            'Temp',
+                            style: kDateStyle,
+                          ),
+                        ),
+                        Text(
+                          '32°C',
+                          style: kTempStyle,
+                        )
                       ],
-                    )
+                    ),
+                  ),
+                  SizedBox(
+                    width: 50,
+                  ),
+                  Container(
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child: Text(
+                            'Wind',
+                            style: kDateStyle,
+                          ),
+                        ),
+                        Text(
+                          '10km/h',
+                          style: kTempStyle,
+                        )
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    width: 45,
+                  ),
+                  Container(
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child: Text(
+                            'Humidity',
+                            style: kDateStyle,
+                          ),
+                        ),
+                        Text(
+                          '75%',
+                          style: kTempStyle,
+                        )
+                      ],
+                    ),
+                  ),
+                ],
+              ), 
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  
+                  Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Text('Today', style: kDateStyle,),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: TextButton(onPressed: (){}, child: Text('View full report')),
+                  )
+                ],
+              ),
+              SizedBox(
+                height: 150,
+                child: ListView(
+                  shrinkWrap: true,
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    TestContainer(color: Colors.red),
+                    TestContainer(color: Colors.blue),
+                    TestContainer(color: Colors.green),
+                    TestContainer(color: Colors.yellow),
+                    TestContainer(color: Colors.deepPurple),
+                    
                   ],
                 ),
-              ),
+              )
             ],
           ),
         ),
@@ -98,27 +187,4 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-class ClipContainer extends StatelessWidget {
-  const ClipContainer({
-    Key? key,
-    required Color colorContainer, required this.text,
-  }) : _colorContainer = colorContainer, super(key: key);
 
-  final Color _colorContainer;
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(15),
-      child: Container(
-        height: 38,
-        width: 120,
-        color: _colorContainer,
-        child: Center(
-          child: Text(text, style: TextStyle(color: Colors.white, fontSize: 15),),
-        ),
-      ),
-    );
-  }
-}
