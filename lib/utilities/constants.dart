@@ -22,3 +22,20 @@ const kTempStyle = TextStyle(
     color: Colors.white,
     fontWeight: FontWeight.bold,
   );
+
+const kDateStyleX = TextStyle(
+    fontSize: 19,
+    color: Colors.white,
+    fontWeight: FontWeight.w300,
+  );
+  const kDateStyleY = TextStyle(
+    fontSize: 15.5,
+    color: Colors.white,
+    fontWeight: FontWeight.w300,
+  );
+
+  const kTempStyleX = TextStyle(
+    fontSize: 27,
+    color: Colors.white,
+    fontWeight: FontWeight.bold,
+  );

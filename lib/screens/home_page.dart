@@ -47,7 +47,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Color(0xFF090A3C),
+        
         bottomNavigationBar: BottomNavigationBar(
           unselectedItemColor: Colors.white,
           selectedIconTheme: IconThemeData(color: Colors.blueAccent, size: 32),
