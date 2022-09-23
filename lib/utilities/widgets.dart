@@ -15,8 +15,8 @@ class ClipContainer extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadius.circular(15),
       child: Container(
-        height: 38,
-        width: 120,
+        
+        width: 150,
         color: _colorContainer,
         child: Center(
           child: Text(
@@ -57,3 +57,4 @@ class _TestContainerState extends State<TestContainer> {
     );
   }
 }
+

@@ -28,7 +28,7 @@ class _HomePageState extends State<HomePage> {
       //return await Geolocator.getCurrentPosition();
       Position position = await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.high);
-      print(position);
+      
       setState(() {
         lat = position.latitude.toString();
         long = position.longitude.toString();
@@ -36,11 +36,46 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  int _selectedIndex = 0;
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Color(0xFF090A3C),
+        bottomNavigationBar: BottomNavigationBar(
+          unselectedItemColor: Colors.white,
+          selectedIconTheme: IconThemeData(color: Colors.blueAccent, size: 32),
+          type: BottomNavigationBarType.fixed,
+          backgroundColor: Color(0xFF090A3C),
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: ''
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.search),
+              label: ''
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.trending_up_outlined),
+              label: ''
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.settings),
+              label: ''
+            ),
+          ],
+          currentIndex: _selectedIndex,
+          //selectedItemColor: Colors.amber[800],
+          onTap: _onItemTapped,
+        ),
+    
         body: Center(
           child: Column(
             children: [
@@ -79,7 +114,7 @@ class _HomePageState extends State<HomePage> {
               ),
               kImprovedSpace,
               Container(
-                height: 200,
+                height: 195,
                 width: double.infinity,
                 child: Image.asset('images/cloud-with-snow.png'),
               ),
@@ -148,24 +183,26 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                 ],
-              ), 
-
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  
                   Padding(
                     padding: const EdgeInsets.all(12.0),
-                    child: Text('Today', style: kDateStyle,),
+                    child: Text(
+                      'Today',
+                      style: kDateStyle,
+                    ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(12.0),
-                    child: TextButton(onPressed: (){}, child: Text('View full report')),
+                    child: TextButton(
+                        onPressed: () {}, child: Text('View full report')),
                   )
                 ],
               ),
               SizedBox(
-                height: 150,
+                height: 90,
                 child: ListView(
                   shrinkWrap: true,
                   scrollDirection: Axis.horizontal,
@@ -175,7 +212,6 @@ class _HomePageState extends State<HomePage> {
                     TestContainer(color: Colors.green),
                     TestContainer(color: Colors.yellow),
                     TestContainer(color: Colors.deepPurple),
-                    
                   ],
                 ),
               )
@@ -186,5 +222,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-
-
