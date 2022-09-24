@@ -207,11 +207,11 @@ class _HomePageState extends State<HomePage> {
                   shrinkWrap: true,
                   scrollDirection: Axis.horizontal,
                   children: [
-                    TestContainer(color: Colors.red),
-                    TestContainer(color: Colors.blue),
-                    TestContainer(color: Colors.green),
-                    TestContainer(color: Colors.yellow),
-                    TestContainer(color: Colors.deepPurple),
+                    TestContainer(),
+                    TestContainer(),
+                    TestContainer(),
+                    TestContainer(),
+                    TestContainer(),
                   ],
                 ),
               )

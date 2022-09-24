@@ -34,10 +34,10 @@ class ClipContainer extends StatelessWidget {
 }
 
 class TestContainer extends StatefulWidget {
-  final Color color;
+  
   const TestContainer({
     Key? key,
-    required this.color,
+   
   }) : super(key: key);
 
   @override
@@ -53,7 +53,27 @@ class _TestContainerState extends State<TestContainer> {
         borderRadius: BorderRadius.circular(15),
         child: Container(
           width: 110,
-          color: widget.color,
+          height: 100,
+          color: Colors.blue,
+          child: Row(
+            children: [
+              Container(
+                padding: EdgeInsets.fromLTRB(10, 0, 7, 5),
+                height: 50,
+                
+                child: Image.asset('images/cloud-with-rain.png')),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  //SizedBox(height: 10,),
+                  Text('14:00', style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),),
+                  Text('32°C', style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),),
+                  
+
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -78,7 +98,7 @@ class ForecastTile extends StatelessWidget {
         borderRadius: BorderRadius.circular(15),
         child: Container(
           width: 250,
-          color: Color.fromRGBO(255, 255, 255, 0.280),
+          color: Color.fromRGBO(255, 255, 255, 0.15),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
