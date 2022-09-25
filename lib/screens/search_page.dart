@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:weather/utilities/constants.dart';
 
 class SearchPage extends StatefulWidget {
-  
   const SearchPage({super.key});
 
   @override
@@ -14,7 +13,6 @@ class SearchPage extends StatefulWidget {
 TextEditingController _cityName = TextEditingController();
 
 class _SearchPageState extends State<SearchPage> {
-  
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -52,6 +50,9 @@ class _SearchPageState extends State<SearchPage> {
                         controller: _cityName,
                         style: TextStyle(color: Colors.white),
                         decoration: InputDecoration(
+                            enabledBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.transparent)),
                             focusedBorder: OutlineInputBorder(
                                 borderSide:
                                     BorderSide(color: Colors.transparent)),
@@ -74,28 +75,69 @@ class _SearchPageState extends State<SearchPage> {
                       width: 60,
                       color: Color.fromRGBO(255, 255, 255, 0.15),
                       child: IconButton(
-                        onPressed: (){},
-                        icon: Icon(Icons.location_pin, color: Colors.white,),
+                        onPressed: () {},
+                        icon: Icon(
+                          Icons.location_pin,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   )
                 ],
               ),
-              Container(
-                height: 100,
-                width: 120,
-                color: Colors.blue,
-                child: Row(
-                  children: [
-                    Column(
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(30, 8, 12, 0),
+                    child: Column(
                       children: [
-                        Text('')
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(13.5),
+                          child: Container(
+                            height: 130,
+                            width: 130,
+                            color: Colors.blue,
+                          ),
+                        ),
+                        kSpace,
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(13.5),
+                          child: Container(
+                            height: 130,
+                            width: 130,
+                            color: Colors.blue,
+                          ),
+                        )
                       ],
-                    )
-                  ],
-                ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(15, 10, 0, 0),
+                    child: Column(
+                      children: [
+                        SizedBox(height: 55,),
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(13.5),
+                          child: Container(
+                            height: 130,
+                            width: 130,
+                            color: Colors.blue,
+                          ),
+                        ),
+                        kSpace,
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(13.5),
+                          child: Container(
+                            height: 130,
+                            width: 130,
+                            color: Colors.blue,
+                          ),
+                        )
+                      ],
+                    ),
+                  )
+                ],
               )
-
             ],
           ),
         ),

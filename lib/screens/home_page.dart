@@ -1,7 +1,9 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:flutter/material.dart';
 import 'package:weather/utilities/constants.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 import '../utilities/widgets.dart';
 
@@ -28,7 +30,7 @@ class _HomePageState extends State<HomePage> {
       //return await Geolocator.getCurrentPosition();
       Position position = await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.high);
-      
+
       setState(() {
         lat = position.latitude.toString();
         long = position.longitude.toString();
@@ -36,46 +38,13 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  int _selectedIndex = 0;
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
+  
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        
-        bottomNavigationBar: BottomNavigationBar(
-          unselectedItemColor: Colors.white,
-          selectedIconTheme: IconThemeData(color: Colors.blueAccent, size: 32),
-          type: BottomNavigationBarType.fixed,
-          backgroundColor: Color(0xFF090A3C),
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: ''
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.search),
-              label: ''
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.trending_up_outlined),
-              label: ''
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
-              label: ''
-            ),
-          ],
-          currentIndex: _selectedIndex,
-          //selectedItemColor: Colors.amber[800],
-          onTap: _onItemTapped,
-        ),
-    
+       
         body: Center(
           child: Column(
             children: [
@@ -222,3 +191,32 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
+// bottomNavigationBar: BottomNavigationBar(
+//           unselectedItemColor: Colors.white,
+//           selectedIconTheme: IconThemeData(color: Colors.blueAccent, size: 32),
+//           type: BottomNavigationBarType.fixed,
+//           backgroundColor: Color(0xFF090A3C),
+//           items: const <BottomNavigationBarItem>[
+//             BottomNavigationBarItem(
+//               icon: Icon(Icons.home),
+//               label: ''
+//             ),
+//             BottomNavigationBarItem(
+//               icon: Icon(Icons.search),
+//               label: ''
+//             ),
+//             BottomNavigationBarItem(
+//               icon: Icon(Icons.trending_up_outlined),
+//               label: ''
+//             ),
+//             BottomNavigationBarItem(
+//               icon: Icon(Icons.settings),
+//               label: ''
+//             ),
+//           ],
+//           currentIndex: _selectedIndex,
+//           //selectedItemColor: Colors.amber[800],
+//           onTap: _onItemTapped,
+//         ),
+    
