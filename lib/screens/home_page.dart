@@ -26,7 +26,7 @@ class _HomePageState extends State<HomePage> {
   var userLocation = '';
   // @override
   // void initState() {
-    
+
   //   getWeatherData;
   // }
 
@@ -35,7 +35,7 @@ class _HomePageState extends State<HomePage> {
     var tempData = _weatherData["main"]["temp"];
     var humidityData = _weatherData["main"]["humidity"];
     var locationData = _weatherData["name"];
-    
+
     var windSpeedData = _weatherData["wind"]["speed"];
     setState(() {
       temp = tempData.toStringAsFixed(0);
@@ -43,32 +43,10 @@ class _HomePageState extends State<HomePage> {
       windSpeed = windSpeedData.toStringAsFixed(1);
       userLocation = locationData;
     });
-    // var humidity = 
-    // print(_weatherData["coord"]);
-    // print(temp);
-    //print(temp.toString());
   }
-  // getLocation() async {
-  //   LocationPermission permission;
-  //   permission = await Geolocator.checkPermission();
-  //   if (permission == LocationPermission.denied) {
-  //     permission = await Geolocator.requestPermission();
-  //     if (permission == LocationPermission.deniedForever) {
-  //       return Future.error('Location Not Available');
-  //     }
-  //   } else {
-  //     //return await Geolocator.getCurrentPosition();
-  //     Position position = await Geolocator.getCurrentPosition(
-  //         desiredAccuracy: LocationAccuracy.high);
-
-  //     print(position);
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
-    //getLocation();
-    
     return SafeArea(
       child: Scaffold(
         body: Center(
@@ -91,7 +69,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                       kImprovedSpace,
                       Text(
-                        DateFormat("EEEEE, dd, yyyy").format(DateTime.now()),
+                        DateFormat("yMMMMd").format(DateTime.now()),
                         style: kDateStyle,
                       ),
                       kImprovedSpace,
