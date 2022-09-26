@@ -18,128 +18,148 @@ class _SearchPageState extends State<SearchPage> {
     return SafeArea(
       child: Scaffold(
         body: Center(
-          child: Column(
-            children: [
-              kSpace,
-              Text(
-                'Pick Location',
-                style: homePageHeader,
-              ),
-              kSpace,
-              Padding(
-                padding: const EdgeInsets.all(9.0),
-                child: Text(
-                  'Search weather data from over 20,000 cities',
-                  style: TextStyle(
-                      fontSize: 17.5,
-                      fontWeight: FontWeight.w300,
-                      color: Colors.white),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text(
+                  'Pick Location',
+                  style: homePageHeader,
                 ),
-              ),
-              kSpace,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(12),
-                    child: Container(
-                      color: Color.fromRGBO(255, 255, 255, 0.15),
-                      width: 270,
-                      height: 60,
-                      child: TextField(
-                        controller: _cityName,
-                        style: TextStyle(color: Colors.white),
-                        decoration: InputDecoration(
-                            enabledBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Colors.transparent)),
-                            focusedBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Colors.transparent)),
-                            prefixIcon: Icon(
-                              Icons.search,
-                              color: Colors.white,
-                            ),
-                            hintText: 'Search',
-                            hintStyle: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.w300,
-                                color: Colors.white)),
-                      ),
-                    ),
+                kSpace,
+                Padding(
+                  padding: const EdgeInsets.all(9.0),
+                  child: Text(
+                    'Search weather data from over 20,000 cities',
+                    style: TextStyle(
+                        fontSize: 17.5,
+                        fontWeight: FontWeight.w300,
+                        color: Colors.white),
                   ),
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(12),
-                    child: Container(
-                      height: 60,
-                      width: 60,
-                      color: Color.fromRGBO(255, 255, 255, 0.15),
-                      child: IconButton(
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.location_pin,
-                          color: Colors.white,
+                ),
+                kSpace,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: Container(
+                        color: Color.fromRGBO(255, 255, 255, 0.15),
+                        width: 270,
+                        height: 60,
+                        child: TextField(
+                          controller: _cityName,
+                          style: TextStyle(color: Colors.white),
+                          decoration: InputDecoration(
+                              enabledBorder: OutlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Colors.transparent)),
+                              focusedBorder: OutlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Colors.transparent)),
+                              prefixIcon: Icon(
+                                Icons.search,
+                                color: Colors.white,
+                              ),
+                              hintText: 'Search',
+                              hintStyle: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w300,
+                                  color: Colors.white)),
                         ),
                       ),
                     ),
-                  )
-                ],
-              ),
-              Row(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(30, 8, 12, 0),
-                    child: Column(
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(13.5),
-                          child: Container(
-                            height: 130,
-                            width: 130,
-                            color: Colors.blue,
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: Container(
+                        height: 60,
+                        width: 60,
+                        color: Color.fromRGBO(255, 255, 255, 0.15),
+                        child: IconButton(
+                          onPressed: () {},
+                          icon: Icon(
+                            Icons.location_pin,
+                            color: Colors.white,
                           ),
                         ),
-                        kSpace,
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(13.5),
-                          child: Container(
-                            height: 130,
-                            width: 130,
-                            color: Colors.blue,
-                          ),
-                        )
-                      ],
+                      ),
+                    )
+                  ],
+                ),
+                Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(30, 8, 12, 0),
+                      child: Column(
+                        children: [
+                          SearchInfoTile(),
+                          kSpace,
+                          SearchInfoTile(),
+                        ],
+                      ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(15, 10, 0, 0),
-                    child: Column(
-                      children: [
-                        SizedBox(height: 55,),
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(13.5),
-                          child: Container(
-                            height: 130,
-                            width: 130,
-                            color: Colors.blue,
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(15, 10, 0, 0),
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 55,
                           ),
-                        ),
-                        kSpace,
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(13.5),
-                          child: Container(
-                            height: 130,
-                            width: 130,
-                            color: Colors.blue,
-                          ),
-                        )
-                      ],
-                    ),
-                  )
-                ],
-              )
-            ],
+                          SearchInfoTile(),
+                          kSpace,
+                          SearchInfoTile(),
+                        ],
+                      ),
+                    )
+                  ],
+                )
+              ],
+            ),
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class SearchInfoTile extends StatefulWidget {
+  const SearchInfoTile({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<SearchInfoTile> createState() => _SearchInfoTileState();
+}
+
+class _SearchInfoTileState extends State<SearchInfoTile> {
+  Color activeColor = Colors.blue;
+  Color inactiveColor = Color.fromRGBO(255, 255, 255, 0.15);
+
+  bool pressed = false;
+  bool pressedAgain = true;
+  Color tileColor = Color.fromRGBO(255, 255, 255, 0.15);
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      borderRadius: BorderRadius.circular(12),
+      color: pressed == false && pressedAgain == true ? tileColor : Colors.blue,
+      child: InkWell(
+        onTap: () {
+          setState(() {
+            pressed = true;
+            pressedAgain == false;
+            tileColor = Colors.blue;
+          });
+        },
+        highlightColor: Colors.blue.withOpacity(0.9),
+        splashColor: Colors.green.withOpacity(0.5),
+        child: Container(
+          decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(13.5),
+          //color: Colors.blue,
+        ),
+        height: 130,
+        width: 140,
         ),
       ),
     );
