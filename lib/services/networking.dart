@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:geolocator/geolocator.dart';
@@ -6,7 +7,7 @@ import 'package:http/http.dart';
 import '../models/weather.dart';
 
 class ApiService{
-
+  
   getLocationWeather() async {
     try {
   LocationPermission permission;
@@ -26,8 +27,11 @@ class ApiService{
     var response = await get(url);
     if (response.statusCode == 200){
       //var model = weatherFromJson(response.body);
-      var model = response.body;
+
+      var model = jsonDecode(response.body);
+     
       return model;
+      
     }
   }
 } on Exception catch (e) {

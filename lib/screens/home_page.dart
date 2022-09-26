@@ -3,6 +3,7 @@ import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:intl/intl.dart';
 import 'package:weather/services/networking.dart';
 import 'package:weather/utilities/constants.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
@@ -18,18 +19,34 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final _colorContainer = Color.fromARGB(255, 5, 71, 124);
-  var lat = '0.0';
-  var long = '0.0';
+  var temp = '0.0';
+  var humidity = '';
+  var windSpeed = '';
   var _weatherData;
-  @override
-  void initState() {
-    // TODO: implement initState
-    getWeatherData;
-  }
+  var userLocation = '';
+  // @override
+  // void initState() {
+    
+  //   getWeatherData;
+  // }
 
   Future getWeatherData() async {
     _weatherData = await ApiService().getLocationWeather();
-    print(_weatherData);
+    var tempData = _weatherData["main"]["temp"];
+    var humidityData = _weatherData["main"]["humidity"];
+    var locationData = _weatherData["name"];
+    
+    var windSpeedData = _weatherData["wind"]["speed"];
+    setState(() {
+      temp = tempData.toStringAsFixed(0);
+      humidity = humidityData.toStringAsFixed(0);
+      windSpeed = windSpeedData.toStringAsFixed(1);
+      userLocation = locationData;
+    });
+    // var humidity = 
+    // print(_weatherData["coord"]);
+    // print(temp);
+    //print(temp.toString());
   }
   // getLocation() async {
   //   LocationPermission permission;
@@ -51,162 +68,143 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     //getLocation();
-    getWeatherData();
+    
     return SafeArea(
       child: Scaffold(
         body: Center(
           child: FutureBuilder(
             future: getWeatherData(),
             builder: (context, snapshot) {
-              
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return CircularProgressIndicator();
-              } else if (snapshot.connectionState == ConnectionState.done && snapshot.hasData){
-                return Text('Successful');
+              } else if (snapshot.connectionState == ConnectionState.done ||
+                  snapshot.hasData) {
+                return Center(
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        userLocation,
+                        style: homePageHeader,
+                      ),
+                      kImprovedSpace,
+                      Text(
+                        DateFormat("EEEEE, dd, yyyy").format(DateTime.now()),
+                        style: kDateStyle,
+                      ),
+                      kImprovedSpace,
+                      kImprovedSpace,
+                      Container(
+                        height: 195,
+                        width: double.infinity,
+                        child: Image.asset('images/cloud-with-snow.png'),
+                      ),
+                      kSpace,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            width: 35,
+                          ),
+                          Column(
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 4.0),
+                                child: Text(
+                                  'Temp',
+                                  style: kDateStyle,
+                                ),
+                              ),
+                              Text(
+                                '$temp°C',
+                                style: kTempStyle,
+                              )
+                            ],
+                          ),
+                          SizedBox(
+                            width: 50,
+                          ),
+                          Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: Text(
+                                  'Wind',
+                                  style: kDateStyle,
+                                ),
+                              ),
+                              Text(
+                                '$windSpeed km/h',
+                                style: kTempStyle,
+                              )
+                            ],
+                          ),
+                          SizedBox(
+                            width: 45,
+                          ),
+                          Flexible(
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: Text(
+                                    'Humidity',
+                                    style: kDateStyle,
+                                  ),
+                                ),
+                                Text(
+                                  '$humidity%',
+                                  style: kTempStyle,
+                                )
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: Text(
+                              'Today',
+                              style: kDateStyle,
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: TextButton(
+                                onPressed: () {},
+                                child: Text('View full report')),
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        height: 90,
+                        child: ListView(
+                          shrinkWrap: true,
+                          scrollDirection: Axis.horizontal,
+                          children: [
+                            TestContainer(),
+                            TestContainer(),
+                            TestContainer(),
+                            TestContainer(),
+                            TestContainer(),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                );
               } else {
-                return Text('Loading', style: TextStyle(color: Colors.white),);
+                return Text('${snapshot.connectionState}');
               }
             },
           ),
         ),
-        // body: Center(
-        //   child: Column(
-        //     children: [
-        //       SizedBox(
-        //         height: 20,
-        //       ),
-        //       Text(
-        //         'Abuja',
-        //         style: homePageHeader,
-        //       ),
-        //       kImprovedSpace,
-        //       Text(
-        //         'May 28, 2021',
-        //         style: kDateStyle,
-        //       ),
-        //       kImprovedSpace,
-        //       Row(
-        //         mainAxisAlignment: MainAxisAlignment.center,
-        //         children: [
-        //           ClipContainer(
-        //             colorContainer: _colorContainer,
-        //             text: 'Forecast',
-        //           ),
-        //           SizedBox(
-        //             width: 3,
-        //           ),
-        //           ClipContainer(
-        //             colorContainer: _colorContainer,
-        //             text: 'Air Quality',
-        //           ),
-        //         ],
-        //       ),
-        //       kImprovedSpace,
-        //       Container(
-        //         height: 195,
-        //         width: double.infinity,
-        //         child: Image.asset('images/cloud-with-snow.png'),
-        //       ),
-        //       kSpace,
-        //       Row(
-        //         mainAxisAlignment: MainAxisAlignment.start,
-        //         children: [
-        //           SizedBox(
-        //             width: 35,
-        //           ),
-        //           Container(
-        //             child: Column(
-        //               children: [
-        //                 Padding(
-        //                   padding: const EdgeInsets.symmetric(vertical: 4.0),
-        //                   child: Text(
-        //                     'Temp',
-        //                     style: kDateStyle,
-        //                   ),
-        //                 ),
-        //                 Text(
-        //                   '32°C',
-        //                   style: kTempStyle,
-        //                 )
-        //               ],
-        //             ),
-        //           ),
-        //           SizedBox(
-        //             width: 50,
-        //           ),
-        //           Container(
-        //             child: Column(
-        //               children: [
-        //                 Padding(
-        //                   padding: const EdgeInsets.all(4.0),
-        //                   child: Text(
-        //                     'Wind',
-        //                     style: kDateStyle,
-        //                   ),
-        //                 ),
-        //                 Text(
-        //                   '10km/h',
-        //                   style: kTempStyle,
-        //                 )
-        //               ],
-        //             ),
-        //           ),
-        //           SizedBox(
-        //             width: 45,
-        //           ),
-        //           Container(
-        //             child: Column(
-        //               children: [
-        //                 Padding(
-        //                   padding: const EdgeInsets.all(4.0),
-        //                   child: Text(
-        //                     'Humidity',
-        //                     style: kDateStyle,
-        //                   ),
-        //                 ),
-        //                 Text(
-        //                   '75%',
-        //                   style: kTempStyle,
-        //                 )
-        //               ],
-        //             ),
-        //           ),
-        //         ],
-        //       ),
-        //       Row(
-        //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //         children: [
-        //           Padding(
-        //             padding: const EdgeInsets.all(12.0),
-        //             child: Text(
-        //               'Today',
-        //               style: kDateStyle,
-        //             ),
-        //           ),
-        //           Padding(
-        //             padding: const EdgeInsets.all(12.0),
-        //             child: TextButton(
-        //                 onPressed: () {}, child: Text('View full report')),
-        //           )
-        //         ],
-        //       ),
-        //       SizedBox(
-        //         height: 90,
-        //         child: ListView(
-        //           shrinkWrap: true,
-        //           scrollDirection: Axis.horizontal,
-        //           children: [
-        //             TestContainer(),
-        //             TestContainer(),
-        //             TestContainer(),
-        //             TestContainer(),
-        //             TestContainer(),
-        //           ],
-        //         ),
-        //       )
-        //     ],
-        //   ),
-        //  ),
       ),
     );
   }
