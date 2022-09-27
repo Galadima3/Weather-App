@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:weather/utilities/constants.dart';
+import 'package:weather/services/networking.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -13,6 +14,18 @@ class SearchPage extends StatefulWidget {
 TextEditingController _cityName = TextEditingController();
 
 class _SearchPageState extends State<SearchPage> {
+  ApiService cityData = ApiService();
+
+  var _cityData;
+  getCityWeather(String cityName) async{
+    _cityData = await ApiService().getCityWeather(_cityName.text.trim());
+    print(_cityData);
+
+  }
+  // pushToNewScreen(){
+
+  // }
+  
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -48,6 +61,10 @@ class _SearchPageState extends State<SearchPage> {
                         width: 270,
                         height: 60,
                         child: TextField(
+                          onSubmitted: (value) {
+                            getCityWeather(value);
+                            
+                          },
                           controller: _cityName,
                           style: TextStyle(color: Colors.white),
                           decoration: InputDecoration(
@@ -76,7 +93,7 @@ class _SearchPageState extends State<SearchPage> {
                         width: 60,
                         color: Color.fromRGBO(255, 255, 255, 0.15),
                         child: IconButton(
-                          onPressed: () {},
+                          onPressed: (){},
                           icon: Icon(
                             Icons.location_pin,
                             color: Colors.white,
@@ -142,14 +159,10 @@ class _SearchInfoTileState extends State<SearchInfoTile> {
   Widget build(BuildContext context) {
     return Material(
       borderRadius: BorderRadius.circular(12),
-      color: pressed == false && pressedAgain == true ? tileColor : Colors.blue,
+      color: inactiveColor,
       child: InkWell(
         onTap: () {
-          setState(() {
-            pressed = true;
-            pressedAgain == false;
-            tileColor = Colors.blue;
-          });
+          
         },
         highlightColor: Colors.blue.withOpacity(0.9),
         splashColor: Colors.green.withOpacity(0.5),

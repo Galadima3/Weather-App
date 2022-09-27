@@ -1,17 +1,17 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-import 'package:bottom_navy_bar/bottom_navy_bar.dart';
-import 'package:geolocator/geolocator.dart';
+
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
+
 import 'package:intl/intl.dart';
-import 'package:weather/services/networking.dart';
+  import 'package:weather/services/networking.dart';
 import 'package:weather/utilities/constants.dart';
-import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+
 
 import '../utilities/widgets.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  final weatherData;
+  const HomePage({super.key, this.weatherData});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -29,6 +29,8 @@ class _HomePageState extends State<HomePage> {
 
   //   getWeatherData;
   // }
+
+  
 
   Future getWeatherData() async {
     _weatherData = await ApiService().getLocationWeather();
@@ -74,7 +76,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                       kImprovedSpace,
                       kImprovedSpace,
-                      Container(
+                      SizedBox(
                         height: 195,
                         width: double.infinity,
                         child: Image.asset('images/cloud-with-snow.png'),

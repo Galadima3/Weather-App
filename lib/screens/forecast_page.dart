@@ -41,7 +41,7 @@ class _ForecastScreenState extends State<ForecastScreen> {
                 ],
               ),
               kSpace,
-              Container(
+              SizedBox(
                 height: 90,
                 child: ListView(
                   shrinkWrap: true,

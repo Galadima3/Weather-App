@@ -4,8 +4,6 @@ import 'dart:developer';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart';
 
-import '../models/weather.dart';
-
 class ApiService {
   getLocationWeather() async {
     try {
@@ -26,12 +24,25 @@ class ApiService {
         var url = Uri.parse(uri);
         var response = await get(url);
         if (response.statusCode == 200) {
-         
-
           var model = jsonDecode(response.body);
 
           return model;
         }
+      }
+    } on Exception catch (e) {
+      log(e.toString());
+    }
+  }
+
+  getCityWeather(String cityName) async {
+    try {
+      var uri =
+          'https://api.openweathermap.org/data/2.5/weather?q=$cityName&appid=18966628b08a83615fea91c56f19fb3c&units=metric';
+      var url = Uri.parse(uri);
+      var response = await get(url);
+      if (response.statusCode == 200) {
+        var model = jsonDecode(response.body);
+        return model;
       }
     } on Exception catch (e) {
       log(e.toString());
